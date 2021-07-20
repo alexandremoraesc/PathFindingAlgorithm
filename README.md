@@ -1,7 +1,7 @@
-#Path Finding Algorithm with Pygame
+# Path Finding Algorithm with Pygame
 
-##Programa feito no Pygame para encontrar o menor caminho de um ponto para outro em um determinado grid
-##Utiliza o algoritmo de Dijsktra
+## Programa feito no Pygame para encontrar o menor caminho de um ponto para outro em um determinado grid
+## Utiliza o algoritmo de Dijsktra e futuramente o algoritmo A Star
 
 ## Como utilizar:
 
