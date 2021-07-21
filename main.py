@@ -27,7 +27,6 @@ def main():
                 pg.quit()
                 exit()
             elif e.type == pg.MOUSEBUTTONDOWN:
-                #print('hi pressed first button')
                 location = pg.mouse.get_pos()
                 col = location[0] // SQ_SIZE
                 row = location[1] // SQ_SIZE
@@ -45,7 +44,6 @@ def main():
                 drawFiles(screen)
             elif e.type == pg.KEYDOWN:
                 if e.key == pg.K_s:
-                    #print('hi pressed s')
                     location = pg.mouse.get_pos()
                     col = location[0] // SQ_SIZE
                     row = location[1] // SQ_SIZE
@@ -57,7 +55,6 @@ def main():
                         a.start = False
                     drawFiles(screen)
                 elif e.key == pg.K_e:
-                    #print('hi pressed e')
                     location = pg.mouse.get_pos()
                     col = location[0] // SQ_SIZE
                     row = location[1] // SQ_SIZE
@@ -90,10 +87,8 @@ def drawTile(screen, Tile):
     if not Tile.start:
         if not Tile.end:
             if Tile.filled:
-                #print(f'Filled - Tile ({Tile.r}, {Tile.c}')
                 pg.draw.rect(screen, pg.Color("Black"), pg.Rect((Tile.c)*SQ_SIZE, (Tile.r)*SQ_SIZE, SQ_SIZE, SQ_SIZE), 0)
             else:
-                #print(f'Not filled - Tile ({Tile.r}, {Tile.c}')
                 pg.draw.rect(screen, pg.Color("White"), pg.Rect((Tile.c)*SQ_SIZE, (Tile.r)*SQ_SIZE, SQ_SIZE, SQ_SIZE), 0)
                 pg.draw.rect(screen, pg.Color("Black"), pg.Rect((Tile.c)*SQ_SIZE, (Tile.r)*SQ_SIZE, SQ_SIZE, SQ_SIZE), 1)
 
@@ -163,9 +158,6 @@ def updateNeibour(Tile):
                 vizinho.vizinhos.remove(Tile.number)
             except:
                 pass
-
-#        print(dicTiles)
-
     else:
         if (Tile.r - 1 >= 0):
             vizinho = findTile(Tile.r-1, Tile.c)
@@ -190,8 +182,6 @@ def updateNeibour(Tile):
             if not vizinho.filled:
                 Tile.vizinhos.append(Tiles(Tile.r, Tile.c+1).number)
                 vizinho.vizinhos.append(Tile.number)
-
- #       print(dicTiles)
 
 def getDistance(dicTiles, vertice):
     grafo = Grafo(dicTiles)
