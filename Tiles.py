@@ -1,12 +1,12 @@
 class Tiles:
-    def __init__(self, r, c, filled = False, start = False, end = False):
+    def __init__(self, r, c, filesnumber, filled = False, start = False, end = False):
         self.r = r
         self.c = c
         self.vizinhos = []
         self.filled = filled 
         self.start = start
         self.end = end
-        self.number = 25*r + c
+        self.number = filesnumber*r + c
 
     def __eq__(self, o):
         if isinstance(o, Tiles):

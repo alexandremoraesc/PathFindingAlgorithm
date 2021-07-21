@@ -5,7 +5,7 @@ from grafoTiles import Grafo
 
 GAME_WIDTH = 500
 GAME_HEIGHT = 500
-FILESNUMBER = 25
+FILESNUMBER = 50
 SQ_SIZE = GAME_WIDTH//FILESNUMBER
 MAX_FPS = 30
 rcToTiles = {}
@@ -20,6 +20,8 @@ def main():
     screen.fill(pg.Color("white"))
     tiles = setTiles(FILESNUMBER)
     drawFiles(screen)
+    hasStart = False
+    hasEnd = False
     while running: 
         for e in pg.event.get():
             if e.type == pg.QUIT:
@@ -48,22 +50,41 @@ def main():
                     col = location[0] // SQ_SIZE
                     row = location[1] // SQ_SIZE
                     a = findTile(row, col)
-                    if not a.start:
-                        a.start = True
-                        start = a.number
+                    
+                    if not hasStart:
+                        if not a.start:
+                            a.start = True
+                            a.filled = False
+                            hasStart = True
+                            start = a.number
+
+                    
                     else:
-                        a.start = False
+                        if a.start:
+                            a.start = False
+                            hasStart = False
+
+
+
                     drawFiles(screen)
                 elif e.key == pg.K_e:
                     location = pg.mouse.get_pos()
                     col = location[0] // SQ_SIZE
                     row = location[1] // SQ_SIZE
                     a = findTile(row, col)
-                    if not a.end:
-                        a.end = True
-                        end = a.number
+                    
+                    if not hasEnd:
+                        if not a.end:
+                            a.end = True
+                            a.filled = False
+                            hasEnd = True
+                            end = a.number
+
+                    
                     else:
-                        a.end = False
+                        if a.end:
+                            a.end = False
+                            hasEnd = False
                     drawFiles(screen)
                 elif e.key == pg.K_SPACE:
                     print(start)
@@ -104,15 +125,15 @@ def setTiles(n):
     tiles = []
     for r in range(FILESNUMBER):
         for c in range(FILESNUMBER):
-            a = Tiles(r,c)
+            a = Tiles(r,c, filesnumber= FILESNUMBER)
             if (r - 1 >= 0):
-                a.vizinhos.append(Tiles(r-1, c).number)
+                a.vizinhos.append(Tiles(r-1, c, filesnumber= FILESNUMBER).number)
             if (r + 1 < FILESNUMBER):
-                a.vizinhos.append(Tiles(r+1, c).number)
+                a.vizinhos.append(Tiles(r+1, c, filesnumber= FILESNUMBER).number)
             if (c-1 >= 0):
-                a.vizinhos.append(Tiles(r,c-1).number)
+                a.vizinhos.append(Tiles(r,c-1, filesnumber= FILESNUMBER).number)
             if (c + 1 < FILESNUMBER):
-                a.vizinhos.append(Tiles(r, c+1).number) 
+                a.vizinhos.append(Tiles(r, c+1, filesnumber= FILESNUMBER).number) 
             
             tiles.append(a)
             key = (r,c)
@@ -128,7 +149,7 @@ def updateNeibour(Tile):
     if Tile.filled:
         if (Tile.r - 1 >= 0):
             try:
-                Tile.vizinhos.remove(Tiles(Tile.r-1, Tile.c).number)
+                Tile.vizinhos.remove(Tiles(Tile.r-1, Tile.c, filesnumber= FILESNUMBER).number)
                 vizinho = findTile(Tile.r-1, Tile.c)
                 vizinho.vizinhos.remove(Tile.number)
             except:
@@ -136,7 +157,7 @@ def updateNeibour(Tile):
 
         if (Tile.r + 1 < FILESNUMBER):
             try:
-                Tile.vizinhos.remove(Tiles(Tile.r+1, Tile.c).number)
+                Tile.vizinhos.remove(Tiles(Tile.r+1, Tile.c, filesnumber= FILESNUMBER).number)
                 vizinho = findTile(Tile.r+1, Tile.c)
                 vizinho.vizinhos.remove(Tile.number)
 
@@ -144,7 +165,7 @@ def updateNeibour(Tile):
                 pass
         if (Tile.c-1 >= 0):
             try:
-                Tile.vizinhos.remove(Tiles(Tile.r,Tile.c-1).number)
+                Tile.vizinhos.remove(Tiles(Tile.r,Tile.c-1, filesnumber= FILESNUMBER).number)
                 vizinho = findTile(Tile.r, Tile.c-1)
                 vizinho.vizinhos.remove(Tile.number)
 
@@ -153,7 +174,7 @@ def updateNeibour(Tile):
         
         if (Tile.c + 1 < FILESNUMBER):
             try:
-                Tile.vizinhos.remove(Tiles(Tile.r, Tile.c+1).number)
+                Tile.vizinhos.remove(Tiles(Tile.r, Tile.c+1, filesnumber= FILESNUMBER).number)
                 vizinho = findTile(Tile.r, Tile.c+1)
                 vizinho.vizinhos.remove(Tile.number)
             except:
@@ -162,25 +183,25 @@ def updateNeibour(Tile):
         if (Tile.r - 1 >= 0):
             vizinho = findTile(Tile.r-1, Tile.c)
             if not vizinho.filled:
-                Tile.vizinhos.append(Tiles(Tile.r-1, Tile.c).number)
+                Tile.vizinhos.append(Tiles(Tile.r-1, Tile.c, filesnumber= FILESNUMBER).number)
                 vizinho.vizinhos.append(Tile.number)
 
         if (Tile.r + 1 < FILESNUMBER):
             vizinho = findTile(Tile.r+1, Tile.c)
             if not vizinho.filled:
-                Tile.vizinhos.append(Tiles(Tile.r+1, Tile.c).number)
+                Tile.vizinhos.append(Tiles(Tile.r+1, Tile.c, filesnumber= FILESNUMBER).number)
                 vizinho.vizinhos.append(Tile.number)
 
         if (Tile.c-1 >= 0):
             vizinho = findTile(Tile.r, Tile.c-1)
             if not vizinho.filled:
-                Tile.vizinhos.append(Tiles(Tile.r, Tile.c-1).number)
+                Tile.vizinhos.append(Tiles(Tile.r, Tile.c-1, filesnumber= FILESNUMBER).number)
                 vizinho.vizinhos.append(Tile.number)
 
         if (Tile.c + 1 < FILESNUMBER):
             vizinho = findTile(Tile.r, Tile.c+1)
             if not vizinho.filled:
-                Tile.vizinhos.append(Tiles(Tile.r, Tile.c+1).number)
+                Tile.vizinhos.append(Tiles(Tile.r, Tile.c+1, filesnumber= FILESNUMBER).number)
                 vizinho.vizinhos.append(Tile.number)
 
 def getDistance(dicTiles, vertice):
@@ -190,8 +211,8 @@ def getDistance(dicTiles, vertice):
 
 def drawPath(parents, start, end, screen):
     while parents[end] != start:
-        row = parents[end]//25
-        col = parents[end] - 25*row
+        row = parents[end]//FILESNUMBER
+        col = parents[end] - FILESNUMBER*row
         pg.draw.rect(screen, pg.Color("Dark Green"), pg.Rect((col)*SQ_SIZE, (row)*SQ_SIZE, SQ_SIZE, SQ_SIZE), 0)
         end = parents[end]
 
