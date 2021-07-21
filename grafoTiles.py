@@ -22,6 +22,8 @@ class Grafo():
                     u = k
             
             S.append(u)
+            if (u == final):
+                break
             for vizinho in self.vizinhos[u]:
                 if dist[vizinho] > dist[u] + 1:
                     dist[vizinho] = dist[u] + 1

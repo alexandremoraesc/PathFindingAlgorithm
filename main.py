@@ -33,16 +33,12 @@ def main():
                 col = location[0] // SQ_SIZE
                 row = location[1] // SQ_SIZE
                 a = findTile(row, col)
-                #print(a.number)
-                #print(a.vizinhos)
                 if a.filled:
                     a.filled = False
                     updateNeibour(a)
-                    #print(a.vizinhos)
                 else:
                     a.filled = True
                     updateNeibour(a)
-                    #print(a.vizinhos)
                 drawFiles(screen)
             elif e.type == pg.KEYDOWN:
                 if e.key == pg.K_s:
@@ -88,7 +84,7 @@ def main():
                     drawFiles(screen)
                 elif e.key == pg.K_SPACE:
                     print(start)
-                    dist = getDistance(dicTiles, start)
+                    dist = getDistance(dicTiles, start, end)
                     drawPath(dist[1], start, end, screen)
                     print(f'A distância até o quadrado {end} é de {dist[0][end]}')
 
@@ -204,9 +200,9 @@ def updateNeibour(Tile):
                 Tile.vizinhos.append(Tiles(Tile.r, Tile.c+1, filesnumber= FILESNUMBER).number)
                 vizinho.vizinhos.append(Tile.number)
 
-def getDistance(dicTiles, vertice):
+def getDistance(dicTiles, vertice, final):
     grafo = Grafo(dicTiles)
-    return grafo.Dijkstra(vertice)
+    return grafo.Dijkstra(vertice, final)
 
 
 def drawPath(parents, start, end, screen):
