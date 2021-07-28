@@ -12,3 +12,8 @@
 ### Para rodar o algoritmo clique a tecla 'Espaço'
 ### Com isso será gerado o menor caminho do ponto inicial até o ponto final sem passar pelos obstáculos
 ### Para mudar os pontos, desmarque o início com a tecla 'S' ou o final com a tecla 'E' e pressione espaço novamente
+
+## Resultado:
+
+### Os quadrados em verde indicam o menor caminho do ponto de início ao ponto final
+### Os quadrados pintados de azul indicam todos os quadros verificados pelo algoritmo de Dijkstra
