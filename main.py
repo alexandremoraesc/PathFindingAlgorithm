@@ -5,7 +5,7 @@ from grafoTiles import Grafo
 
 GAME_WIDTH = 500
 GAME_HEIGHT = 500
-FILESNUMBER = 50
+FILESNUMBER = 25
 SQ_SIZE = GAME_WIDTH//FILESNUMBER
 MAX_FPS = 30
 rcToTiles = {}
@@ -46,23 +46,18 @@ def main():
                     col = location[0] // SQ_SIZE
                     row = location[1] // SQ_SIZE
                     a = findTile(row, col)
-                    
                     if not hasStart:
                         if not a.start:
                             a.start = True
                             a.filled = False
                             hasStart = True
                             start = a.number
-
-                    
                     else:
                         if a.start:
                             a.start = False
                             hasStart = False
-
-
-
                     drawFiles(screen)
+
                 elif e.key == pg.K_e:
                     location = pg.mouse.get_pos()
                     col = location[0] // SQ_SIZE
@@ -76,7 +71,6 @@ def main():
                             hasEnd = True
                             end = a.number
 
-                    
                     else:
                         if a.end:
                             a.end = False
@@ -86,9 +80,7 @@ def main():
                     print(start)
                     dist = getDistance(dicTiles, start, end)
                     drawPath(dist[1], start, end, screen)
-                    print(f'A distância até o quadrado {end} é de {dist[0][end]}')
-
-
+                    print(f'A distância de {start} até o quadrado {end} é de {dist[0][end]}')
 
         clock.tick(MAX_FPS)
         pg.display.flip()

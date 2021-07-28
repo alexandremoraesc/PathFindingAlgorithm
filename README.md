@@ -11,4 +11,4 @@
 ### Para marcar os obstáculos basta clicar nos quadrados com o mouse
 ### Para rodar o algoritmo clique a tecla 'Espaço'
 ### Com isso será gerado o menor caminho do ponto inicial até o ponto final sem passar pelos obstáculos
-
+### Para mudar os pontos, desmarque o início com a tecla 'S' ou o final com a tecla 'E' e pressione espaço novamente
