@@ -79,6 +79,7 @@ def main():
                 elif e.key == pg.K_SPACE:
                     print(start)
                     dist = getDistance(dicTiles, start, end)
+                    drawVisitados(dist[2], screen, start, end)
                     drawPath(dist[1], start, end, screen)
                     print(f'A distância de {start} até o quadrado {end} é de {dist[0][end]}')
 
@@ -201,8 +202,15 @@ def drawPath(parents, start, end, screen):
     while parents[end] != start:
         row = parents[end]//FILESNUMBER
         col = parents[end] - FILESNUMBER*row
-        pg.draw.rect(screen, pg.Color("Dark Green"), pg.Rect((col)*SQ_SIZE, (row)*SQ_SIZE, SQ_SIZE, SQ_SIZE), 0)
+        pg.draw.rect(screen, pg.Color("Dark Green"), pg.Rect((col)*SQ_SIZE + 1, (row)*SQ_SIZE + 1, SQ_SIZE-2, SQ_SIZE-2), 0)
         end = parents[end]
+
+def drawVisitados(visitados, screen, start, end):
+    for visitado in visitados:
+        if visitado != end and visitado != start:
+            row = visitado//FILESNUMBER
+            col = visitado - FILESNUMBER*row
+            pg.draw.rect(screen, pg.Color("Blue"), pg.Rect((col)*SQ_SIZE + 1, (row)*SQ_SIZE +1, SQ_SIZE -2, SQ_SIZE-2), 0)
 
 
 if __name__ == "__main__":

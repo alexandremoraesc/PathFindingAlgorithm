@@ -6,12 +6,13 @@ class Grafo():
         self.vizinhos = list(dicTiles.values())
         
     def Dijkstra(self, vertice, final = None):
-
+        visitados = []
         V = self.vertices
         parents = [0] * len(V)
         dist = [float('inf')] * len(V)
         S = []
         dist[vertice] = 0
+        visitados.append(vertice)
         parents[vertice] = -1 
         while (len(S) == len(set(S))):
             diff = list(set(V) - set(S))
@@ -28,6 +29,6 @@ class Grafo():
                 if dist[vizinho] > dist[u] + 1:
                     dist[vizinho] = dist[u] + 1
                     parents[vizinho] = u 
-        
-        return dist, parents
+                    visitados.append(vizinho)
+        return dist, parents, visitados
 
